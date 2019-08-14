@@ -1,0 +1,6 @@
+[submodule "external/libtomcrypt"]
+	path = external/libtomcrypt
+	url = https://github.com/libtom/libtomcrypt.git
+[submodule "external/libtommath"]
+	path = external/libtommath
+	url = https://github.com/libtom/libtommath.git
