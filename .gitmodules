@@ -4,3 +4,6 @@
 [submodule "external/libtommath"]
 	path = external/libtommath
 	url = https://github.com/libtom/libtommath.git
+[submodule "external/ncbind"]
+	path = external/ncbind
+	url = ../ncbind
