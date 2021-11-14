@@ -89,8 +89,8 @@ protected:
 	// ユーザメッセージレシーバの登録/解除
 	void setReceiver(tTVPWindowMessageReceiver receiver, bool enable) {
 		tTJSVariant mode     = enable ? (tTVInteger)(tjs_int)wrmRegister : (tTVInteger)(tjs_int)wrmUnregister;
-		tTJSVariant proc     = (tTVInteger)(tjs_int)receiver;
-		tTJSVariant userdata = (tTVInteger)(tjs_int)objthis;
+		tTJSVariant proc     = (tTVInteger)(tjs_intptr_t)receiver;
+		tTJSVariant userdata = (tTVInteger)(tjs_intptr_t)objthis;
 		tTJSVariant *p[] = {&mode, &proc, &userdata};
 		if (objthis->FuncCall(0, L"registerMessageReceiver", NULL, NULL, 4, p, objthis) != TJS_S_OK) {
 			TVPThrowExceptionMessage(L"can't regist user message receiver");
