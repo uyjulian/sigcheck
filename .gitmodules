@@ -1,9 +1,11 @@
 [submodule "external/libtomcrypt"]
 	path = external/libtomcrypt
 	url = https://github.com/libtom/libtomcrypt.git
+	ignore = dirty
 [submodule "external/libtommath"]
 	path = external/libtommath
 	url = https://github.com/libtom/libtommath.git
+	ignore = dirty
 [submodule "external/ncbind"]
 	path = external/ncbind
 	url = https://github.com/uyjulian/ncbind.git
