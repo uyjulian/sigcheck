@@ -363,7 +363,7 @@ SigChecker::CheckSignatureOfFile(int ignorestart, int ignoreend, int ofs)
 		
 		int errnum;
 		pubbuf_len = sizeof(pubbuf) - 1;
-		errnum = base64_decode((const unsigned char*)(start), end - start, pubbuf, &pubbuf_len);
+		errnum = base64_decode((const char*)(start), end - start, pubbuf, &pubbuf_len);
 		if(errnum != CRYPT_OK) {
 			errormsg = error_to_string(errnum);
 			return EXCEPTION;
@@ -415,7 +415,7 @@ SigChecker::CheckSignatureOfFile(int ignorestart, int ignoreend, int ofs)
 		}
 		
 		buf_len = sizeof(buf) - 1;
-		int errnum = base64_decode((const unsigned char*)(buf_asc + signmark.size()),
+		int errnum = base64_decode((const char*)(buf_asc + signmark.size()),
 								   buf_asc_len - signmark.size(), buf, &buf_len);
 		if(errnum != CRYPT_OK) {
 			errormsg = error_to_string(errnum);
