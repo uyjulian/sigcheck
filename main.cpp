@@ -1,4 +1,4 @@
-#include "ncbind/ncbind.hpp"
+#include "ncbind.hpp"
 
 #include <string>
 #include <vector>
@@ -8,6 +8,17 @@ using namespace std;
 
 #define WM_SIGCHECKPROGRESS (WM_APP+2)
 #define WM_SIGCHECKDONE     (WM_APP+3)
+
+// vcpkgのlibtommathでデッドコード除去がうまく働かずに
+// 未定義シンボル参照が起こる場合用のダミー定義
+#ifdef ENABLE_DUMMY_FOR_DEAD_CODE_ELIM_FAIL
+extern "C" {
+int s_read_arc4random(void *p, size_t n)  { return 0; }
+int s_read_urandom(void *p, size_t n)     { return 0; }
+int s_read_getrandom(void *p, size_t n)   { return 0; }
+int s_read_ltm_rng(void *p, size_t n)     { return 0; }
+}
+#endif
 
 //---------------------------------------------------------------------------
 
@@ -363,7 +374,11 @@ SigChecker::CheckSignatureOfFile(int ignorestart, int ignoreend, int ofs)
 		
 		int errnum;
 		pubbuf_len = sizeof(pubbuf) - 1;
+#if 1
 		errnum = base64_decode((const char*)(start), end - start, pubbuf, &pubbuf_len);
+#else
+		errnum = base64_decode((const unsigned char*)(start), end - start, pubbuf, &pubbuf_len);
+#endif
 		if(errnum != CRYPT_OK) {
 			errormsg = error_to_string(errnum);
 			return EXCEPTION;
@@ -415,8 +430,13 @@ SigChecker::CheckSignatureOfFile(int ignorestart, int ignoreend, int ofs)
 		}
 		
 		buf_len = sizeof(buf) - 1;
+#if 1
 		int errnum = base64_decode((const char*)(buf_asc + signmark.size()),
 								   buf_asc_len - signmark.size(), buf, &buf_len);
+#else
+		int errnum = base64_decode((const unsigned char*)(buf_asc + signmark.size()),
+								   buf_asc_len - signmark.size(), buf, &buf_len);
+#endif
 		if(errnum != CRYPT_OK) {
 			errormsg = error_to_string(errnum);
 			return EXCEPTION;
