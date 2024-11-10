@@ -114,7 +114,7 @@ public:
 		// ウィンドウハンドルを取得して通知
 		tTJSVariant val;
 		objthis->PropGet(0, TJS_W("HWND"), NULL, &val, objthis);
-		HWND hwnd = reinterpret_cast<HWND>((tjs_int)(val));
+		HWND hwnd = reinterpret_cast<HWND>((tjs_intptr_t)(val));
 		::PostMessage(hwnd, msg, wparam, lparam);
 	}
 
