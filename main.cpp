@@ -362,12 +362,12 @@ SigChecker::CheckSignatureOfFile(int ignorestart, int ignoreend, int ofs)
 		// read pubkey
 		const char *start = strstr(inkey, startline);
 		if (!start) {
-			errormsg = ttstr(TJS_W("Cannot find \")") + startline + "\" in the key string";
+			errormsg = ttstr(TJS_W("Cannot find \"")) + startline + "\" in the key string";
 			return EXCEPTION;
 		}
 		const char *end = strstr(inkey, endline);
 		if (!end) {
-			errormsg = ttstr(TJS_W("Cannot find \")") + endline + "\" in the key string";
+			errormsg = ttstr(TJS_W("Cannot find \"")) + endline + "\" in the key string";
 			return EXCEPTION;
 		}
 		start += strlen(startline);
